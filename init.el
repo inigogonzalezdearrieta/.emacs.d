@@ -1,3 +1,8 @@
+;;;; Emacs init file
+;; Inigo Gonzalez de Arrieta
+;; Started on 2025/07/30
+;;;;
+
 ;; Basic setup
 (setq inhibit-startup-message t)   ; Disable startup screen
 (setq make-backup-files nil)       ; No backup~ files
@@ -21,6 +26,34 @@
 (add-to-list 'default-frame-alist '(top . 100))
 (add-to-list 'default-frame-alist '(left . 450))
 
-;; Default Python interpreter
-(setq python-shell-interpreter "~/venvs/entorno1/bin/python")
+;; Default Python interpreter (commented out by default)
+;(setq python-shell-interpreter "~/venvs/entorno1/bin/python")
 
+;;;;
+;; PACKAGES
+;;;;
+
+;; Adapted from https://realpython.com/emacs-the-best-python-editor/
+(require 'package)
+(add-to-list 'package-archives
+	'("melpa" . "http://melpa.org/packages/") t)
+(package-initialize)
+(when (not package-archive-contents)
+	(package-refresh-contents))
+
+;; Installs packages
+(defvar myPackages
+	'(markdown-mode
+	elpy
+    )
+)
+
+;; Scans the list in myPackages
+;; If the package listed is not already installed, install it
+(mapc #'(lambda (package)
+          (unless (package-installed-p package)
+            (package-install package)))
+      myPackages)
+
+;; Enable elpy
+(elpy-enable)
