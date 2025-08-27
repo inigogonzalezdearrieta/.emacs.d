@@ -8,6 +8,7 @@
 (setq make-backup-files nil)       ; No backup~ files
 (setq auto-save-default nil)       ; No auto-save files
 (global-display-line-numbers-mode) ; Show line numbers
+(setq-default major-mode 'text-mode)
 
 ;; Set UTF-8 encoding
 (set-language-environment "UTF-8")
@@ -30,6 +31,13 @@
 ;(setq python-shell-interpreter "~/venvs/entorno1/bin/python")
 
 ;;;;
+;; BINDINGS
+;;;;
+
+;; Unbind 'C-x f'
+(keymap-global-unset "C-x f")
+
+;;;;
 ;; PACKAGES
 ;;;;
 
@@ -44,7 +52,8 @@
 ;; Installs packages
 (defvar myPackages
 	'(markdown-mode
-	elpy
+	corfu
+	python-black
     )
 )
 
@@ -55,5 +64,21 @@
             (package-install package)))
       myPackages)
 
-;; Enable elpy
-(elpy-enable)
+;;;;
+;; PACKAGE OPTIONS
+;;;;
+
+;; Text and org
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+(add-hook 'org-mode-hook 'visual-line-mode) ;; Wrap lines in a pleasing manner in Org mode.
+
+;; Enable corfu globally for autocompletion
+(require 'corfu)
+(global-corfu-mode)
+
+;; Enable python-black formatting on save
+(require 'python-black)
+(add-hook 'python-mode-hook #'python-black-on-save-mode)
+
+;; Python autocompletion (make sure to pip install pyright)
+(add-hook 'python-mode-hook #'eglot-ensure)
