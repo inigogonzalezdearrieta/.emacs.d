@@ -27,8 +27,8 @@
 (add-to-list 'default-frame-alist '(top . 100))
 (add-to-list 'default-frame-alist '(left . 450))
 
-;; Default Python interpreter (commented out by default)
-;(setq python-shell-interpreter "~/venvs/entorno1/bin/python")
+;; Default Python interpreter (venv instead of default)
+(setq python-shell-interpreter "~/venvs/entorno1/bin/python")
 
 ;;;;
 ;; BINDINGS
@@ -70,7 +70,16 @@
 
 ;; Text and org
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
+(require 'org) ;; Ensure Org is loaded
+(require 'ob-python) ;; (Optional) load Python backend explicitly
+(require 'org-tempo) ;; Allows starting source blocks with < s TAB
 (add-hook 'org-mode-hook 'visual-line-mode) ;; Wrap lines in a pleasing manner in Org mode.
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)))
+(setq org-babel-python-command "~/venvs/entorno1/bin/python")
+(setq org-confirm-babel-evaluate nil) ;; Avoid being asked for confirmation.
+
 
 ;; Enable corfu globally for autocompletion
 (require 'corfu)
@@ -80,5 +89,19 @@
 (require 'python-black)
 (add-hook 'python-mode-hook #'python-black-on-save-mode)
 
-;; Python autocompletion (make sure to pip install pyright)
+;; Python autocompletion (make sure to npm install -g pyright)
 (add-hook 'python-mode-hook #'eglot-ensure)
+
+;; Added automatically by Customize after package-install
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
