@@ -1,5 +1,6 @@
 ;;;; Emacs init file
 ;; Inigo Gonzalez de Arrieta
+;; Minimalist setup for Python, Markdown and org-mode
 ;; Started on 2025/07/30
 ;;;;
 
@@ -27,9 +28,6 @@
 (add-to-list 'default-frame-alist '(top . 100))
 (add-to-list 'default-frame-alist '(left . 450))
 
-;; Default Python interpreter (venv instead of default)
-(setq python-shell-interpreter "~/venvs/entorno1/bin/python")
-
 ;;;;
 ;; BINDINGS
 ;;;;
@@ -41,7 +39,7 @@
 ;; PACKAGES
 ;;;;
 
-;; Adapted from https://realpython.com/emacs-the-best-python-editor/
+;; Basic package initialization.
 (require 'package)
 (add-to-list 'package-archives
 	'("melpa" . "http://melpa.org/packages/") t)
@@ -49,23 +47,28 @@
 (when (not package-archive-contents)
 	(package-refresh-contents))
 
-;; Installs packages
-(defvar myPackages
-	'(markdown-mode
-	corfu
-	python-black
-    )
-)
+;; Set use-package up (the most up-to-date method)
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+(require 'use-package)
+(setq use-package-always-ensure t)
 
-;; Scans the list in myPackages
-;; If the package listed is not already installed, install it
-(mapc #'(lambda (package)
-          (unless (package-installed-p package)
-            (package-install package)))
-      myPackages)
+;; LIST OF PACKAGES
+
+;; Markdown support
+(use-package markdown-mode
+  :mode ("\\.md\\'" . markdown-mode)
+  :init (setq markdown-command "pandoc"))
+
+;; Blacken for Python formatting
+(use-package blacken
+  :hook (python-mode . blacken-mode)
+  :config
+  (setq blacken-line-length 88))
 
 ;;;;
-;; PACKAGE OPTIONS
+;; PACKAGE OPTIONS (FOR BUILT-IN ONES)
 ;;;;
 
 ;; Text and org
@@ -80,19 +83,14 @@
 (setq org-babel-python-command "~/venvs/entorno1/bin/python")
 (setq org-confirm-babel-evaluate nil) ;; Avoid being asked for confirmation.
 
+;; Default Python interpreter (venv instead of default)
+(setq python-shell-interpreter "~/venvs/entorno1/bin/python")
+(setq python-indent-offset 4)
 
-;; Enable corfu globally for autocompletion
-(require 'corfu)
-(global-corfu-mode)
+;;;;
+;; END OF USER-GENERATED CODE
+;;;;
 
-;; Enable python-black formatting on save
-(require 'python-black)
-(add-hook 'python-mode-hook #'python-black-on-save-mode)
-
-;; Python autocompletion (make sure to npm install -g pyright)
-(add-hook 'python-mode-hook #'eglot-ensure)
-
-;; Added automatically by Customize after package-install
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
