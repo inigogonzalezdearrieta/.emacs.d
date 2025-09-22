@@ -9,7 +9,7 @@
 (setq make-backup-files nil)       ; No backup~ files
 (setq auto-save-default nil)       ; No auto-save files
 (global-display-line-numbers-mode) ; Show line numbers
-(setq-default major-mode 'text-mode)
+(setq-default major-mode 'text-mode) ; Text mode instead of fundamental mode
 
 ;; Set UTF-8 encoding
 (set-language-environment "UTF-8")
@@ -63,6 +63,7 @@
 
 ;; Blacken for Python formatting
 (use-package blacken
+  :ensure t
   :hook (python-mode . blacken-mode)
   :config
   (setq blacken-line-length 88))
