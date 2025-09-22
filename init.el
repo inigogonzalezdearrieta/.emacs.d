@@ -56,7 +56,7 @@
 
 ;; LIST OF PACKAGES
 
-;; Markdown support
+;; Markdown support (needs pandoc installed)
 (use-package markdown-mode
   :mode ("\\.md\\'" . markdown-mode)
   :init (setq markdown-command "pandoc"))
@@ -66,10 +66,33 @@
   :ensure t
   :hook (python-mode . blacken-mode)
   :config
-  (setq blacken-line-length 88))
+  (setq blacken-line-length 80))
+
+;; Pyenv to manage Python virtual environments.
+(use-package pyvenv
+  :ensure t
+  :config
+  (pyvenv-mode 1))  ;; Enable pyvenv mode globally
+(pyvenv-activate "~/venvs/entorno1/bin/python")
+
+;; Company for autocompletion.
+(use-package company
+  :ensure t
+  :init
+  (global-company-mode)  ;; Enable company mode globally
+  :config
+  (setq company-idle-delay 0.2)  ;; Delay before suggestions pop up
+  (setq company-minimum-prefix-length 2))  ;; Minimum characters before suggestions
+
+;; Company-jedi for Python autocompletion (pip install jedi)
+(use-package company-jedi
+  :ensure t
+  :after company
+  :config
+  (add-to-list 'company-backends 'company-jedi))
 
 ;;;;
-;; PACKAGE OPTIONS (FOR BUILT-IN ONES)
+;; PACKAGE OPTIONS (ONLY FOR BUILT-IN ONES)
 ;;;;
 
 ;; Text and org
