@@ -10,6 +10,7 @@
 (setq auto-save-default nil)       ; No auto-save files
 (global-display-line-numbers-mode) ; Show line numbers
 (setq-default major-mode 'text-mode) ; Text mode instead of fundamental mode
+(setq ring-bell-function 'ignore) ; Disable the annoying bell sound
 
 ;; Set UTF-8 encoding
 (set-language-environment "UTF-8")
