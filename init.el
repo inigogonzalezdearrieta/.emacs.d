@@ -5,7 +5,7 @@
 ;;;;
 
 ;; Basic setup
-(setq inhibit-startup-message t)   ; Disable startup screen
+;; Some stuff was moved to early-init.el to avoid flickering
 (setq make-backup-files nil)       ; No backup~ files
 (setq auto-save-default nil)       ; No auto-save files
 (global-display-line-numbers-mode) ; Show line numbers
@@ -17,17 +17,6 @@
 
 ;; Set default font
 (set-face-attribute 'default nil :font "DejaVu Sans Mono-12")
-
-;; Theme: wombat (built-in)
-(load-theme 'wombat t)
-
-;; Default size of Emacs client
-(add-to-list 'default-frame-alist '(width . 100))  ; characters
-(add-to-list 'default-frame-alist '(height . 40))  ; lines
-
-;; Default location of Emacs client
-(add-to-list 'default-frame-alist '(top . 100))
-(add-to-list 'default-frame-alist '(left . 450))
 
 ;;;;
 ;; BINDINGS
