@@ -16,7 +16,12 @@
 ;; OTHER OPTIONS
 
 (setq inhibit-startup-message t)   ; Disable startup screen
-(load-theme 'wombat t) ; Load the built-in wombat theme
+; (load-theme 'wombat t) ; Load the built-in wombat theme
+;;
+; I'm switching to a light theme temporarily.
+(load-theme 'modus-operandi t)
+;;
+
 
 ;; Default size of Emacs client
 (add-to-list 'default-frame-alist '(width . 100))  ; characters
