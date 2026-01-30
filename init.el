@@ -1,6 +1,7 @@
 ;;;; Emacs init file
 ;; Inigo Gonzalez de Arrieta
 ;; Minimalist setup for Python, Markdown and org-mode
+;; Python packages installed via guix, but not Emacs.
 ;; Started on 2025/07/30
 ;;;;
 
@@ -51,7 +52,7 @@
   :mode ("\\.md\\'" . markdown-mode)
   :init (setq markdown-command "pandoc"))
 
-;; Blacken for Python formatting
+;; Blacken for Python formatting (requires python-black)
 (use-package blacken
   :ensure t
   :hook (python-mode . blacken-mode)
@@ -59,11 +60,12 @@
   (setq blacken-line-length 80))
 
 ;; Pyenv to manage Python virtual environments.
-(use-package pyvenv
-  :ensure t
-  :config
-  (pyvenv-mode 1))  ;; Enable pyvenv mode globally
-(pyvenv-activate "~/venvs/entorno1/bin/python")
+;; CURRENTLY NOT IN USE: guix takes care of this now.
+;(use-package pyvenv
+;  :ensure t
+;  :config
+;  (pyvenv-mode 1))  ;; Enable pyvenv mode globally
+;(pyvenv-activate "~/venvs/entorno1/bin/python")
 
 ;; Company for autocompletion.
 (use-package company
@@ -74,7 +76,7 @@
   (setq company-idle-delay 0.2)  ;; Delay before suggestions pop up
   (setq company-minimum-prefix-length 2))  ;; Minimum characters before suggestions
 
-;; Company-jedi for Python autocompletion (pip install jedi)
+;; Company-jedi for Python autocompletion (requires python-jedi and python-epc)
 (use-package company-jedi
   :ensure t
   :after company
@@ -94,11 +96,11 @@
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((python . t)))
-(setq org-babel-python-command "~/venvs/entorno1/bin/python")
+(setq org-babel-python-command "~/.guix-profile/bin/python") ; Requires python-wrapper
 (setq org-confirm-babel-evaluate nil) ;; Avoid being asked for confirmation.
 
-;; Default Python interpreter (venv instead of default)
-(setq python-shell-interpreter "~/venvs/entorno1/bin/python")
+;; Default Python interpreter (guix one instead of system Python)
+(setq python-shell-interpreter "~/.guix-profile/bin/python")
 (setq python-indent-offset 4)
 
 ;;;;
