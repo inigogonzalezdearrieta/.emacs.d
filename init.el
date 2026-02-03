@@ -99,6 +99,18 @@
 (setq org-babel-python-command "~/.guix-profile/bin/python") ; Requires python-wrapper
 (setq org-confirm-babel-evaluate nil) ;; Avoid being asked for confirmation.
 
+; Default values to be loaded on new .org files.
+
+(defun my-org-insert-header ()
+  "Insert default header if the file is new/empty."
+  (when (and buffer-file-name
+            (= (buffer-size) 0))
+    (insert "#+AUTHOR: Iñigo González de Arrieta\n"
+            "#+OPTIONS: toc:nil\n"
+            "\n")))
+
+(add-hook 'org-mode-hook 'my-org-insert-header)
+
 ;; Default Python interpreter (guix one instead of system Python)
 (setq python-shell-interpreter "~/.guix-profile/bin/python")
 (setq python-indent-offset 4)
