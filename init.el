@@ -111,6 +111,7 @@
             (= (buffer-size) 0))
     (insert "#+AUTHOR: Iñigo González de Arrieta\n"
             "#+OPTIONS: toc:nil\n"
+            "#+TITLE: \n"
             "\n")))
 
 (add-hook 'org-mode-hook 'my-org-insert-header)
