@@ -19,6 +19,10 @@
 ;; Set default font
 (set-face-attribute 'default nil :font "DejaVu Sans Mono-12")
 
+;; Define a separate custom.el file for Customize to use.
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file 'noerror) ; No error message if not available.
+
 ;;;;
 ;; BINDINGS
 ;;;;
@@ -118,16 +122,3 @@
 ;;;;
 ;; END OF USER-GENERATED CODE
 ;;;;
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages '(blacken company-jedi markdown-mode pyvenv)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
