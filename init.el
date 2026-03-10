@@ -56,6 +56,13 @@
   :mode ("\\.md\\'" . markdown-mode)
   :init (setq markdown-command "pandoc"))
 
+;; Magit for Git integration
+
+(use-package magit
+  :ensure t
+  :bind (("C-x g" . magit-status)
+         ("C-x C-g" . magit-status)))
+
 ;; Blacken for Python formatting (requires python-black)
 (use-package blacken
   :ensure t
