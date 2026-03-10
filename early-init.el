@@ -1,6 +1,6 @@
 ;;;; Emacs early_init file
-;; Inigo Gonzalez de Arrieta
-;; Simple setup for improved garbage collection
+;; Inigo Gonzalez de Arrieta Simple setup for improved garbage
+;; collection and pre-loading themes.
 ;; Started on 2025/09/30
 ;;;;
 
@@ -13,7 +13,7 @@
 (add-hook 'emacs-startup-hook
           (lambda () (setq gc-cons-threshold (* 50 1024 1024))))
 
-;; OTHER OPTIONS
+;; FRAME AND THEME CUSTOMIZATION
 
 (setq inhibit-startup-message t)   ; Disable startup screen
 ; (load-theme 'wombat t) ; Load the built-in wombat theme
