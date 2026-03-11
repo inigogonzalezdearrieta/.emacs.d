@@ -1,13 +1,14 @@
 ;;;; Emacs init file
 ;; Inigo Gonzalez de Arrieta
-;; Minimalist setup for Python, Markdown and org-mode
-;; Python packages installed via guix, but not Emacs.
-;; Started on 2025/07/30
+;; Minimalist setup for Python, Markdown and org-mode.
+;; Python packages installed via guix for reproducibility.
+;; Emacs installed through apt and packages via use-package.
+;; Started on 2025/07/30.
 ;;;;
 
 ;; Basic setup
-;; Some stuff was moved to early-init.el to avoid flickering
-(setq make-backup-files nil)       ; No backup~ files
+;; Some basic stuff is loaded in early-init.el to avoid flickering
+(setq make-backup-files nil)       ; No backup ~ files
 (setq auto-save-default nil)       ; No auto-save files
 (global-display-line-numbers-mode) ; Show line numbers
 (setq-default major-mode 'text-mode) ; Text mode instead of fundamental mode
@@ -37,7 +38,14 @@
 ;; Basic package initialization.
 (require 'package)
 (add-to-list 'package-archives
-	'("melpa" . "http://melpa.org/packages/") t)
+     '("melpa" . "http://melpa.org/packages/") t)
+
+;; Set priorities (MELPA only if necessary)
+(setq package-archive-priorities
+      '(("gnu" . 10)
+	("nongnu" . 5)
+	("melpa"   . 1)))
+
 (package-initialize)
 (when (not package-archive-contents)
 	(package-refresh-contents))
