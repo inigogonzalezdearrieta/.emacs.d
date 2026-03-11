@@ -78,13 +78,10 @@
   :config
   (setq blacken-line-length 80))
 
-;; Pyenv to manage Python virtual environments.
-;; CURRENTLY NOT IN USE: guix takes care of this now.
-;(use-package pyvenv
-;  :ensure t
-;  :config
-;  (pyvenv-mode 1))  ;; Enable pyvenv mode globally
-;(pyvenv-activate "~/venvs/entorno1/bin/python")
+;; Vterm for proper terminal compatibility.
+;; Requires: cmake, libtool-bin, libvterm-dev
+(use-package vterm
+  :ensure t)
 
 ;; Company for autocompletion.
 (use-package company
