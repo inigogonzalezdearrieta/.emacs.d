@@ -64,8 +64,11 @@
   :mode ("\\.md\\'" . markdown-mode)
   :init (setq markdown-command "pandoc"))
 
-;; Magit for Git integration
+;; Denote for quick note generation
+(use-package denote
+  :ensure t)
 
+;; Magit for Git integration
 (use-package magit
   :ensure t
   :bind (("C-x g" . magit-status)
