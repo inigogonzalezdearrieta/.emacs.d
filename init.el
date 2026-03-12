@@ -11,7 +11,6 @@
 (setq make-backup-files nil)       ; No backup ~ files
 (setq auto-save-default nil)       ; No auto-save files
 (global-display-line-numbers-mode) ; Show line numbers
-(setq-default major-mode 'text-mode) ; Text mode instead of fundamental mode
 (setq ring-bell-function 'ignore) ; Disable the annoying bell sound
 
 ;; Set UTF-8 encoding
@@ -59,7 +58,8 @@
 
 ;; LIST OF PACKAGES
 
-;; Markdown support (needs pandoc installed)
+;; Markdown support
+;; Requires: pandoc
 (use-package markdown-mode
   :mode ("\\.md\\'" . markdown-mode)
   :init (setq markdown-command "pandoc"))
@@ -67,14 +67,17 @@
 ;; Denote for quick note generation
 (use-package denote
   :ensure t)
+(setq denote-file-type 'markdown-yaml) ; Markdown instead of org
 
 ;; Magit for Git integration
+;; Requires: git
 (use-package magit
   :ensure t
   :bind (("C-x g" . magit-status)
          ("C-x C-g" . magit-status)))
 
-;; Blacken for Python formatting (requires python-black)
+;; Blacken for Python formatting
+;; Requires: python-black
 (use-package blacken
   :ensure t
   :hook (python-mode . blacken-mode)
@@ -82,7 +85,7 @@
   (setq blacken-line-length 80))
 
 ;; Vterm for proper terminal compatibility.
-;; Requires: cmake, libtool-bin, libvterm-dev
+;; Requires: cmake, libtool-bin, libvterm(-dev)
 (use-package vterm
   :ensure t)
 
@@ -95,7 +98,8 @@
   (setq company-idle-delay 0.2)  ;; Delay before suggestions pop up
   (setq company-minimum-prefix-length 2))  ;; Minimum characters before suggestions
 
-;; Company-jedi for Python autocompletion (requires python-jedi and python-epc)
+;; Company-jedi for Python autocompletion
+;; Requires: python-jedi, python-epc
 (use-package company-jedi
   :ensure t
   :after company
@@ -106,8 +110,11 @@
 ;; PACKAGE OPTIONS (ONLY FOR BUILT-IN ONES)
 ;;;;
 
-;; Text and org
+;; Text
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
+(setq-default major-mode 'text-mode)
+
+;; Org
 (require 'org) ;; Ensure Org is loaded
 (require 'ob-python) ;; (Optional) load Python backend explicitly
 (require 'org-tempo) ;; Allows starting source blocks with < s TAB
@@ -119,7 +126,6 @@
 (setq org-confirm-babel-evaluate nil) ;; Avoid being asked for confirmation.
 
 ; Default values to be loaded on new .org files.
-
 (defun my-org-insert-header ()
   "Insert default header if the file is new/empty."
   (when (and buffer-file-name
@@ -128,10 +134,10 @@
             "#+OPTIONS: toc:nil\n"
             "#+TITLE: \n"
             "\n")))
-
 (add-hook 'org-mode-hook 'my-org-insert-header)
 
 ;; Default Python interpreter (guix one instead of system Python)
+;; Requires: python-wrapper (to equate python to python3 in guix)
 (setq python-shell-interpreter "~/.guix-profile/bin/python")
 (setq python-indent-offset 4)
 
