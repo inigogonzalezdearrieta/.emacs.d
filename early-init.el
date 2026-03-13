@@ -16,12 +16,10 @@
 ;; FRAME AND THEME CUSTOMIZATION
 
 (setq inhibit-startup-message t)   ; Disable startup screen
-; (load-theme 'wombat t) ; Load the built-in wombat theme
-;;
-; I'm switching to a light theme temporarily.
-(load-theme 'modus-operandi t)
-;;
+(tool-bar-mode -1) ; Disable the bar with big buttons.
+(scroll-bar-mode -1) ; Disable the right-hand scroll bar.
 
+(load-theme 'modus-operandi t)
 
 ;; Default size of Emacs client
 (add-to-list 'default-frame-alist '(width . 100))  ; characters
