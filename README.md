@@ -5,8 +5,8 @@ A simple Emacs configuration for a scientific workflow based on Python and Markd
 The `python` binary and its packages are installed using Guix.
 
 # How to use
-Download it with git or wget:
+Clone the repo on your current directory with git:
 
 > git clone https://github.com/inigogonzalezdearrieta/.emacs.d.git
-> 
-> wget https://github.com/inigogonzalezdearrieta/.emacs.d/archive/refs/heads/main.tar.gz && tar -xzf main.tar.gz
+
+Once you run Emacs, it will start to automatically download the required packages. Read the comments in `init.el` to find the required dependencies.
