@@ -54,13 +54,13 @@
   (package-refresh-contents)
   (package-install 'use-package))
 (require 'use-package)
-(setq use-package-always-ensure t)
 
 ;; LIST OF PACKAGES
 
 ;; Markdown support
 ;; Requires: pandoc
 (use-package markdown-mode
+  :ensure t
   :mode ("\\.md\\'" . markdown-mode)
   :init (setq markdown-command "pandoc"))
 
@@ -110,24 +110,30 @@
 ;; PACKAGE OPTIONS (ONLY FOR BUILT-IN ONES)
 ;;;;
 
+;; Default Python interpreter (guix one instead of system Python)
+;; Requires: python-wrapper (to equate python to python3 in guix)
+(setq python-shell-interpreter "~/.guix-profile/bin/python")
+(setq python-indent-offset 4)
+
 ;; Text
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
 (setq-default major-mode 'text-mode)
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;; Org
 (require 'org) ;; Ensure Org is loaded
 (require 'ob-python) ;; (Optional) load Python backend explicitly
 (require 'org-tempo) ;; Allows starting source blocks with < s TAB
-(add-hook 'org-mode-hook 'visual-line-mode) ;; Wrap lines in a pleasing manner in Org mode.
 (org-babel-do-load-languages
  'org-babel-load-languages
- '((python . t)))
+ '((python . t)
+   (emacs-lisp . t)
+   (sh . t))
 (setq org-babel-python-command "~/.guix-profile/bin/python") ; Requires python-wrapper
 (setq org-confirm-babel-evaluate nil) ;; Avoid being asked for confirmation.
 
 ; Default values to be loaded on new .org files.
 (defun my-org-insert-header ()
-  "Insert default header if the file is new/empty."
+  "Insert default header if a .org file is new/empty."
   (when (and buffer-file-name
             (= (buffer-size) 0))
     (insert "#+AUTHOR: Iñigo González de Arrieta\n"
@@ -135,11 +141,7 @@
             "#+TITLE: \n"
             "\n")))
 (add-hook 'org-mode-hook 'my-org-insert-header)
-
-;; Default Python interpreter (guix one instead of system Python)
-;; Requires: python-wrapper (to equate python to python3 in guix)
-(setq python-shell-interpreter "~/.guix-profile/bin/python")
-(setq python-indent-offset 4)
+(add-hook 'org-mode-hook 'visual-line-mode) ;; Wrap lines in a pleasing manner in Org mode.
 
 ;;;;
 ;; END OF USER-GENERATED CODE
