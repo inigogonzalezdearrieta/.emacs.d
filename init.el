@@ -127,7 +127,7 @@
  'org-babel-load-languages
  '((python . t)
    (emacs-lisp . t)
-   (sh . t))
+   (shell . t)))
 (setq org-babel-python-command "~/.guix-profile/bin/python") ; Requires python-wrapper
 (setq org-confirm-babel-evaluate nil) ;; Avoid being asked for confirmation.
 
