@@ -73,8 +73,7 @@
 ;; Requires: git
 (use-package magit
   :ensure t
-  :bind (("C-x g" . magit-status)
-         ("C-x C-g" . magit-status)))
+  :bind (("C-x g" . magit-status)))
 
 ;; Blacken for Python formatting
 ;; Requires: python-black
