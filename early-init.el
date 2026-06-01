@@ -1,6 +1,6 @@
 ;;;; Emacs early_init file
-;; Inigo Gonzalez de Arrieta Simple setup for improved garbage
-;; collection and pre-loading themes.
+;; Inigo Gonzalez de Arrieta
+;; Simple setup for improved garbage collection and pre-loading themes.
 ;; Started on 2025/09/30
 ;;;;
 
@@ -9,9 +9,9 @@
 ;; Temporarily increase GC threshold during startup
 (setq gc-cons-threshold most-positive-fixnum)
 
-;; Restore to normal value after startup (e.g. 50MB)
+;; Restore to 100MB after startup
 (add-hook 'emacs-startup-hook
-          (lambda () (setq gc-cons-threshold (* 50 1024 1024))))
+          (lambda () (setq gc-cons-threshold (* 100 1024 1024))))
 
 ;; FRAME AND THEME CUSTOMIZATION
 
